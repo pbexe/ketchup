@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "*"
+black = "==18.9b0"
+dj-database-url = "*"
+"flake8" = "*"
+django-cors-headers = "*"
+django-allauth = "*"
+djangorestframework = "*"
+django-rest-auth = "*"
+Pillow = "*"
+psycopg2 = "*"
+gunicorn = "*"
+whitenoise = "*"
+
+[dev-packages]
+
+[requires]
+python_version = '3.8'
