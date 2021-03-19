@@ -12,3 +12,11 @@ class Model1(models.Model):
 
     def __str__(self):
         return str(self.test_field)
+
+class Room(models.Model):
+    start_time = models.TimeField(auto_now_add=True)
+
+class UserProfile(models.Model):
+    room = models.ForeignKey(Room, on_delete=models.SET_NULL, null=True)
+    code = models
+

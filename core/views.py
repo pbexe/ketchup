@@ -9,3 +9,6 @@ class Model1ViewSet(viewsets.ModelViewSet):
     queryset = Model1.objects.all()
     serializer_class = Model1Serializer
     permission_classes = (permissions.Model1,)
+
+def register():
+    pass
