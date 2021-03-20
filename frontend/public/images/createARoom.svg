@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="156" height="48" viewBox="0 0 156 48">
+  <defs>
+    <filter id="Path_1581" x="0" y="0" width="156" height="48" filterUnits="userSpaceOnUse">
+      <feOffset dy="3" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="Group_450" data-name="Group 450" transform="translate(-1346 -178)">
+    <rect id="Rectangle_252" data-name="Rectangle 252" width="138" height="32" rx="7" transform="translate(1355 184)" fill="#ff5858"/>
+    <g transform="matrix(1, 0, 0, 1, 1346, 178)" filter="url(#Path_1581)">
+      <path id="Path_1581-2" data-name="Path 1581" d="M6,0H132a6,6,0,0,1,6,6V24a6,6,0,0,1-6,6H6a6,6,0,0,1-6-6V6A6,6,0,0,1,6,0Z" transform="translate(9 6)" fill="#ff5858"/>
+    </g>
+    <text id="Create_a_room" data-name="Create a room" transform="translate(1380 204)" fill="#fff" font-size="12" font-family="SFProText-Medium, SF Pro Text" font-weight="500" letter-spacing="0.036em"><tspan x="0" y="0">Create a room</tspan></text>
+  </g>
+</svg>

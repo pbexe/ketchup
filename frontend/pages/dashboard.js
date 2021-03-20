@@ -6,6 +6,9 @@ import Centerer from "../components/Centerer";
 import Room from "../components/Room";
 import Footer from "../components/Footer";
 import moment from "moment";
+import NoRooms from "../components/NoRooms";
+import { user } from "../api/rooms";
+import React from "react";
 
 const Welcome = styled.div`
   font-size: 24px;
@@ -32,6 +35,8 @@ const ActiveRooms = styled.div`
   color: #2f2f48;
   font-size: 24px;
   font-weight: 600;
+
+  flex-grow: 1;
 `;
 
 const Rooms = styled.div`
@@ -45,7 +50,20 @@ const HorizontalRule = styled.hr`
   border-bottom: none;
 `;
 
+const FlexActiveRooms = styled.div`
+  display: flex;
+`;
+
+const Clickable = styled.img`
+  cursor: pointer;
+`
+
 export default function Dashboard() {
+  // React.useEffect(async () => {
+  //   const u = await user();
+  //   console.log("u", u);
+  // });
+
   return (
     <Page>
       <Content>
@@ -53,7 +71,7 @@ export default function Dashboard() {
         <TimeBar
           runningTimer={{
             title: "Daily Standup",
-            startedAt: moment().subtract(29, "minutes"),
+            startedAt: moment().subtract(29, "minutes").subtract(12, "seconds"),
             length: 45,
           }}
         />
@@ -61,34 +79,11 @@ export default function Dashboard() {
           <Welcome>Hey Tom,</Welcome>
           <WelcomeAction>Join a room to get started</WelcomeAction>
           <HorizontalRule />
-          <ActiveRooms>Active Rooms</ActiveRooms>
-          <Rooms>
-            <Room
-              title={"Daily Standup"}
-              startedAt={moment().subtract(45, "minutes")}
-              length={45}
-            />
-            <Room
-              title={"Sprint Retrospective"}
-              startedAt={moment().subtract(45, "minutes")}
-              length={45}
-            />
-            <Room
-              title={"Work on API"}
-              startedAt={moment().subtract(45, "minutes")}
-              length={45}
-            />
-            <Room
-              title={"Work on API"}
-              startedAt={moment().subtract(45, "minutes")}
-              length={45}
-            />
-            <Room
-              title={"Work on API"}
-              startedAt={moment().subtract(45, "minutes")}
-              length={45}
-            />
-          </Rooms>
+          <FlexActiveRooms>
+            <ActiveRooms>Active Rooms</ActiveRooms>
+          </FlexActiveRooms>
+          <Rooms></Rooms>
+          <NoRooms />
         </Centerer>
       </Content>
       <Footer />

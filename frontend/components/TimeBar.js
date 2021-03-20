@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { useState } from "react";
 import { getTimeLeft } from "../helpers";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import Faces from "./Faces";
+import { rooms } from "../api/rooms";
 
 const Play = styled.img`
   padding-left: 30px;
@@ -39,18 +43,56 @@ const Flex = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 55px;
+  height: 64px;
 `;
 
 const Title = styled.div`
   font-weight: 600;
+  margin-right: 30px;
 `;
 
-const TimeLeft = styled.div``;
+const TimeLeft = styled.div`
+  font-weight: 600;
+  color: #ff5858;
+`;
 
-const TotalTime = styled.div``;
+const TotalTime = styled.div`
+  font-size: 13px;
+  font-weight: 600;
+  color: #afafbe;
+  margin-left: 14px;
+`;
+
+const StopButton = styled.div`
+  background: #ff5858;
+  border-radius: 100%;
+  height: 37px;
+  width: 37px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding-right: 1px; */
+  color: #a03333;
+  transition: all 0.1s;
+  cursor: pointer;
+  &:hover {
+    background: #f15454;
+  }
+`;
+
+const Info = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const Actions = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 function TimeBar({ runningTimer }) {
   const [time, setTime] = useState("45");
+  rooms();
 
   return (
     <>
@@ -74,18 +116,39 @@ function TimeBar({ runningTimer }) {
           )}
           {runningTimer && (
             <>
-              <Title>{runningTimer.title}</Title>
-              <TimeLeft>
-                {
-                  getTimeLeft(runningTimer.startedAt, runningTimer.length)
-                    .minutes
-                }
-                :
-                {
-                  getTimeLeft(runningTimer.startedAt, runningTimer.length)
-                    .seconds
-                }
-              </TimeLeft>
+              <Info>
+                <Title>{runningTimer.title}</Title>
+                <TimeLeft>
+                  {
+                    getTimeLeft(runningTimer.startedAt, runningTimer.length)
+                      .minutes
+                  }
+                  :
+                  {
+                    getTimeLeft(runningTimer.startedAt, runningTimer.length)
+                      .seconds
+                  }
+                </TimeLeft>
+                <TotalTime>{runningTimer.length} min</TotalTime>
+              </Info>
+              <Actions>
+                <Faces
+                  faces={[
+                    {
+                      url: "/images/fancyBackground.svg",
+                    },
+                    {
+                      url: "/images/fancyBackground.svg",
+                    },
+                    {
+                      url: "/images/fancyBackground.svg",
+                    },
+                  ]}
+                />
+                <StopButton>
+                  <FontAwesomeIcon icon={faTimes} />
+                </StopButton>
+              </Actions>
             </>
           )}
         </Flex>
@@ -98,7 +161,7 @@ function TimeBar({ runningTimer }) {
 TimeBar.propTypes = {
   runningTimer: PropTypes.shape({
     title: PropTypes.string,
-    startedAt: PropTypes.instanceOf(Date),
+    startedAt: PropTypes.any,
     length: PropTypes.number,
   }),
 };
