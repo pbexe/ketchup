@@ -40,3 +40,10 @@ Now, we need to create a client for terraform, this will allow us to terraform k
  4. `terraform apply`
  5. say 'yes'
  6. Tadah
+
+Update:
+
+To run locally do 
+`terraform apply -var-file="production.tfvars"`
+to run against production do
+`terraform apply -var-file="production.tfvars"`
