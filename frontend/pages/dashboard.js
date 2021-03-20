@@ -129,7 +129,9 @@ export default function Dashboard() {
               length: user.current_room.duration,
               faces:
                 user.current_room.users?.map((person) => ({
-                  url: `https://eu.ui-avatars.com/api/?name=${person.firstName}+${person.lastName}`,
+                  url: `https://eu.ui-avatars.com/api/?name=${person.name
+                    .split(" ")
+                    .join("+")}`,
                 })) ?? [],
             }
           }
@@ -163,7 +165,9 @@ export default function Dashboard() {
                 length={room.duration}
                 startedAt={room.start_time}
                 faces={room.users.map((person) => ({
-                  url: `https://eu.ui-avatars.com/api/?name=${person.firstName}+${person.lastName}`,
+                  url: `https://eu.ui-avatars.com/api/?name=${person.name
+                    .split(" ")
+                    .join("+")}`,
                 }))}
                 onJoin={async (id) => {
                   await joinRoom(keycloak.token, id);

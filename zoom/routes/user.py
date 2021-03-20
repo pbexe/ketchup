@@ -6,7 +6,7 @@ import requests
 import uuid
 from uuid import UUID
 from tortoise.contrib.pydantic import pydantic_model_creator
-
+from fastapi import FastAPI, HTTPException
 from tortoise.exceptions import DoesNotExist
 
 from utils import get_current_user, demand_current_user
@@ -75,8 +75,21 @@ async def leave_room(user: dict = Depends(demand_current_user)):
     ident = UUID(user.get("sub"))
     user = await User.get(id=ident)
 
+    if not await user.current_room:
+        raise HTTPException(
+            status_code=404,
+            detail="Users current room does not exist",
+            headers={"X-Error": "There goes my error"},
+        )
+
+    room = await user.current_room.get()
+
+    other_users_in_room = await room.users.filter(id__not=user.id)
     user.current_room = None
     await user.save()
+
+    if len(other_users_in_room) == 0:
+        await room.delete()
 
     return await UserPydantic.from_queryset_single(User.get(id=user.id))
 

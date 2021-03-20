@@ -60,7 +60,19 @@ export default function SplashHeader({ selected }) {
   } else {
     // debugger;
     account_button = (
-      <MenuLink onClick={() => keycloak.login()}>Login/Signup</MenuLink>
+      <MenuLink
+        onClick={() =>
+          keycloak.login(
+            process.env.NODE_ENV === "production"
+              ? {
+                  redirectUri: "https://ketchup.sh/dashboard",
+                }
+              : {}
+          )
+        }
+      >
+        Login/Signup
+      </MenuLink>
     );
   }
 
