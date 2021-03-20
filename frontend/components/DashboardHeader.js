@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Centerer from "./Centerer";
+import Link from "next/link";
 
 const Logo = styled.img`
   height: 23px;
@@ -43,8 +44,8 @@ export default function DashboardHeader({ selected }) {
       <Centerer>
         <Content>
           <MenuGroup>
-            <Logo src="/images/redLogo.svg" />
-            <MenuItem selected={selected == 1}>Dashboard</MenuItem>
+            <Link href="/"><Logo src="/images/redLogo.svg" /></Link>
+            <MenuItem selected={selected == 1}><Link href="/dashboard">Dashboard</Link></MenuItem>
             <MenuItem selected={selected == 2}>Team</MenuItem>
           </MenuGroup>
           <MenuGroup>
