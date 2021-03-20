@@ -25,6 +25,7 @@ class Room(Model):
     creation_time = data.DatetimeField(auto_now_add=True)
     start_time = data.DatetimeField(auto_now_add=True)
     duration = fields.IntField(default=25)
+    disabled = fields.BooleanField(default=False)
 
     users: fields.ReverseRelation["User"]
 
