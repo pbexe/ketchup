@@ -42,17 +42,13 @@ class User(Model):
     id = fields.UUIDField(pk=True)
     # identifier = fields.UUIDField()
     anonymous = fields.BooleanField(default=False)
-    # rooms: fields.[Room] = fields.OneToOneField(
-    #     "models.Room", on_delete=fields.CASCADE, related_name="room"
-    # )
+    name = fields.CharField(max_length=50)
+    email = fields.CharField(max_length=50)
+    username = fields.CharField(max_length=50)
+
     current_room: fields.ForeignKeyRelation[Room] = fields.ForeignKeyField(
         "models.Room", related_name="users", null=True
     )
-    # rooms: fields.ReverseRelation["Room"]
-    # rooms: fields.ReverseRelation["Room"]
-    # rooms: fields.ManyToManyRelation["User"] = fields.ManyToManyField(
-    #     "models.Room", related_name="users", through="user_room"
-    # )
     teams: fields.ManyToManyRelation[Team] = fields.ManyToManyField(
         "models.Team", related_name="members", through="user_team", default=[]
     )
