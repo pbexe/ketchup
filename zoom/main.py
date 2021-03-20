@@ -60,7 +60,7 @@ async def get_user(current_user: dict = Depends(get_current_user)):
     logging.info(current_user)
     return current_user
 
-if os.environ.get('PRODUCTION') == True and (db_url:= os.environ.get('DATABASE_URL')) == True:
+if os.environ.get('PRODUCTION') == True and (db_url:= os.environ.get('DATABASE_URL')):
     register_tortoise(
         app,
         db_url=db_url,
