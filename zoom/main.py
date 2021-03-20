@@ -86,6 +86,7 @@ async def start():
 #     return current_user
 
 if os.environ.get('PRODUCTION') == True and (db_url:= os.environ.get('DATABASE_URL')):
+    print("====== USING PROD DB ======")
     register_tortoise(
         app,
         db_url=db_url,
@@ -94,6 +95,7 @@ if os.environ.get('PRODUCTION') == True and (db_url:= os.environ.get('DATABASE_U
         add_exception_handlers=True,
     ) 
 else:
+    print("====== USING DEV DB ======")
     register_tortoise(
         app,
         db_url="sqlite://db.sqlite",
