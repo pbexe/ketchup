@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import moment from "moment";
 import Faces from "./Faces";
+import { getTimeLeft } from "../helpers";
 
 const Card = styled.div`
   border-radius: 12px;
@@ -76,18 +77,13 @@ const Button = styled.div`
 `;
 
 export default function Room({ title, length, startedAt }) {
-  const timeSince = moment(new Date()).diff(startedAt) / 1000 / 60;
-
-  const timeLeft = (length * 60 * 1000 - timeSince) / 1000 / 60;
-  const minsLeft = Math.ceil(timeLeft);
-  const secondsLeft = Math.round((timeLeft - minsLeft) * 60);
+  const { minutes, seconds } = getTimeLeft(startedAt, length);
   return (
     <Card>
       <TimeContainer>
         <TimeLeftContainer>
           <Time>
-            {String(minsLeft).padStart(2, "0")}:
-            {String(secondsLeft).padStart(2, "0")}
+            {minutes}:{seconds}
           </Time>
           <LeftText>mins left</LeftText>
         </TimeLeftContainer>

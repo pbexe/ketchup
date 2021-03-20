@@ -57,7 +57,13 @@ export default function Dashboard() {
     <Page>
       <Content>
         <DashboardHeader selected={1} />
-        <TimeBar />
+        <TimeBar
+          runningTimer={{
+            title: "Daily Standup",
+            startedAt: moment().subtract(29, "minutes"),
+            length: 45,
+          }}
+        />
         <Centerer>
           <Welcome>Hey Tom,</Welcome>
           <WelcomeAction>Join a room to get started</WelcomeAction>
