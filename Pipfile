@@ -21,6 +21,8 @@ fastapi = "*"
 tortoise-orm = "*"
 uvicorn = "*"
 python-keycloak = "*"
+uvloop = "*"
+httptools = "*"
 
 [dev-packages]
 

@@ -1,2 +1,1 @@
-release: python manage.py migrate
-web: gunicorn project.wsgi --log-file -
+web: gunicorn -k uvicorn.workers.UvicornWorker --chdir zoom main:app --access-logfile -
