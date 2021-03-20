@@ -8,6 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@react-keycloak/web": "^3.4.0",
+    "keycloak-js": "^12.0.4",
     "next": "10.0.8",
     "next-iron-session": "^4.1.12",
     "next-session": "^3.4.0",
@@ -18,6 +20,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^10.2.5",
+    "babel-plugin-styled-components": "^1.12.0",
     "postcss": "^8.2.8",
     "tailwindcss": "^2.0.3"
   }
