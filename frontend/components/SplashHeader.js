@@ -76,7 +76,7 @@ export default function SplashHeader({ selected }) {
             </Link>
           </MenuItem>
           <MenuItem selected={selected == 2}>
-            <Link href="/contact">
+            <Link href="mailto:contact@ketchup.sh">
               <MenuLink>Contact us</MenuLink>
             </Link>
           </MenuItem>
