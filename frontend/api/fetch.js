@@ -15,15 +15,15 @@ export default async function fetchJson(endpoint, method, data) {
 
     // if the server replies, there's always some data in json
     // if there's a network error, it will throw at the previous line
-    const data = await response.json();
+    const resData = await response.json();
 
     if (response.ok) {
-      return data;
+      return resData;
     }
 
     const error = new Error(response.statusText);
     error.response = response;
-    error.data = data;
+    error.data = resData;
     throw error;
   } catch (error) {
     if (!error.data) {
