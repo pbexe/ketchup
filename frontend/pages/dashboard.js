@@ -6,6 +6,7 @@ import Centerer from "../components/Centerer";
 import Room from "../components/Room";
 import Footer from "../components/Footer";
 import moment from "moment";
+import NoRooms from "../components/NoRooms";
 
 const Welcome = styled.div`
   font-size: 24px;
@@ -32,6 +33,8 @@ const ActiveRooms = styled.div`
   color: #2f2f48;
   font-size: 24px;
   font-weight: 600;
+
+  flex-grow: 1;
 `;
 
 const Rooms = styled.div`
@@ -45,6 +48,10 @@ const HorizontalRule = styled.hr`
   border-bottom: none;
 `;
 
+const FlexActiveRooms = styled.div`
+  display: flex;
+`;
+
 export default function Dashboard() {
   return (
     <Page>
@@ -55,34 +62,13 @@ export default function Dashboard() {
           <Welcome>Hey Tom,</Welcome>
           <WelcomeAction>Join a room to get started</WelcomeAction>
           <HorizontalRule />
-          <ActiveRooms>Active Rooms</ActiveRooms>
+          <FlexActiveRooms>
+            <ActiveRooms>Active Rooms</ActiveRooms>
+            <img src="/images/createARoom.svg" />
+          </FlexActiveRooms>
           <Rooms>
-            <Room
-              title={"Daily Standup"}
-              startedAt={moment().subtract(45, "minutes")}
-              length={45}
-            />
-            <Room
-              title={"Sprint Retrospective"}
-              startedAt={moment().subtract(45, "minutes")}
-              length={45}
-            />
-            <Room
-              title={"Work on API"}
-              startedAt={moment().subtract(45, "minutes")}
-              length={45}
-            />
-            <Room
-              title={"Work on API"}
-              startedAt={moment().subtract(45, "minutes")}
-              length={45}
-            />
-            <Room
-              title={"Work on API"}
-              startedAt={moment().subtract(45, "minutes")}
-              length={45}
-            />
           </Rooms>
+          <NoRooms />
         </Centerer>
       </Content>
       <Footer />
