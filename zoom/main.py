@@ -20,13 +20,14 @@ from models.user import User
 
 from routes.auth import auth_router
 from routes.room import room_router
+from routes.team import team_router
 
 from utils import get_current_user
 
 app = FastAPI(title="Ketchup")
 app.include_router(auth_router, prefix="/auth")
 app.include_router(room_router, prefix="/room")
-
+app.include_router(team_router, prefix="/team")
 
 class StartResponse(BaseModel):
     room: Room_Pydantic
@@ -55,10 +56,10 @@ async def start():
     return StartResponse(room=room_pd, token=encoded_jwt)
 
 
-@app.get("/user")
-async def get_user(current_user: dict = Depends(get_current_user)):
-    logging.info(current_user)
-    return current_user
+# @app.get("/user")
+# async def get_user(current_user: dict = Depends(get_current_user)):
+#     logging.info(current_user)
+#     return current_user
 
 if os.environ.get('PRODUCTION') == True and (db_url:= os.environ.get('DATABASE_URL')):
     register_tortoise(
