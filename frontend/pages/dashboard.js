@@ -96,6 +96,15 @@ export default function Dashboard() {
     refetch();
   }, [initialized, keycloak]);
 
+  React.useEffect(() => {
+    const timer = setTimeout(async () => {
+      const rooms = await getRooms(keycloak.token);
+      setRooms(rooms);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  });
+
   if (!initialized) {
     return <div>Loading</div>;
   }
