@@ -13,6 +13,7 @@ const Face = styled.div`
   border: 5px solid white;
   position: relative;
   left: ${(props) => `-${props.amount}px`};
+  background-size: cover;
   &:hover {
     z-index: 1;
   }

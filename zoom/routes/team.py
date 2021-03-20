@@ -20,7 +20,7 @@ async def get_teams():
 
 
 @router.get("/{id}", response_model=controller.pydantic_model)
-async def get_team(id: int):
+async def get_team(id: UUID4):
     return await controller.retrieve(id)
 
 

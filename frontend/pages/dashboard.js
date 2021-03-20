@@ -7,8 +7,17 @@ import Room from "../components/Room";
 import Footer from "../components/Footer";
 import moment from "moment";
 import NoRooms from "../components/NoRooms";
-import { user } from "../api/rooms";
+import {
+  createRoom,
+  getRooms,
+  getUser,
+  joinRoom,
+  leaveRoom,
+} from "../api/rooms";
 import React from "react";
+import { useKeycloak } from "@react-keycloak/ssr";
+import { useRouter } from "next/router";
+import { getTimeLeft } from "../helpers";
 
 const Welcome = styled.div`
   font-size: 24px;
@@ -35,7 +44,6 @@ const ActiveRooms = styled.div`
   color: #2f2f48;
   font-size: 24px;
   font-weight: 600;
-
   flex-grow: 1;
 `;
 
@@ -54,36 +62,123 @@ const FlexActiveRooms = styled.div`
   display: flex;
 `;
 
-const Clickable = styled.img`
-  cursor: pointer;
-`
-
 export default function Dashboard() {
-  // React.useEffect(async () => {
-  //   const u = await user();
-  //   console.log("u", u);
-  // });
+  const { keycloak, initialized } = useKeycloak();
+  const [name, setName] = React.useState("");
+
+  const [user, setUser] = React.useState({});
+  const [rooms, setRooms] = React.useState([]);
+
+  const router = useRouter();
+
+  const refetch = async () => {
+    const user = await keycloak.loadUserProfile();
+    setName(user.firstName);
+
+    const u = await getUser(keycloak.token);
+    setUser(u);
+
+    window.localStorage.setItem("user", JSON.stringify(u));
+
+    const rooms = await getRooms(keycloak.token);
+    setRooms(rooms);
+  };
+
+  React.useEffect(() => {
+    const current = window.localStorage.getItem("user");
+    setUser(current ? JSON.parse(current) : {});
+  }, []);
+
+  React.useEffect(() => {
+    if (initialized && !keycloak.authenticated) {
+      router.push("/");
+    }
+    refetch();
+  }, [initialized, keycloak]);
+
+  React.useEffect(() => {
+    const timer = setTimeout(async () => {
+      const rooms = await getRooms(keycloak.token);
+      setRooms(rooms);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  });
+
+  if (!initialized) {
+    return <div>Loading</div>;
+  }
+
+  const activeRooms = rooms.filter((room) => {
+    const left = getTimeLeft(room.start_time, room.duration);
+    if (left.minutes == "00" && left.seconds == "00") {
+      return false;
+    }
+    return true;
+  });
 
   return (
     <Page>
       <Content>
-        <DashboardHeader selected={1} />
+        <DashboardHeader selected={1} name={name} />
         <TimeBar
-          runningTimer={{
-            title: "Daily Standup",
-            startedAt: moment().subtract(29, "minutes").subtract(12, "seconds"),
-            length: 45,
+          runningTimer={
+            user.current_room && {
+              title: user.current_room.name,
+              startedAt: user.current_room.start_time,
+              length: user.current_room.duration,
+              faces:
+                user.current_room.users?.map((person) => ({
+                  url: `https://eu.ui-avatars.com/api/?name=${person.name
+                    .split(" ")
+                    .join("+")}`,
+                })) ?? [],
+            }
+          }
+          onStart={async (duration, name) => {
+            const newRoom = await createRoom(keycloak.token, name, duration);
+            console.log(newRoom);
+
+            // Join the created room
+            await joinRoom(keycloak.token, newRoom.id);
+
+            refetch();
+          }}
+          onEnd={async () => {
+            await leaveRoom(keycloak.token);
+
+            refetch();
           }}
         />
         <Centerer>
-          <Welcome>Hey Tom,</Welcome>
+          <Welcome>Hey {name},</Welcome>
           <WelcomeAction>Join a room to get started</WelcomeAction>
           <HorizontalRule />
           <FlexActiveRooms>
             <ActiveRooms>Active Rooms</ActiveRooms>
           </FlexActiveRooms>
-          <Rooms></Rooms>
-          <NoRooms />
+          <Rooms>
+            {activeRooms.map((room) => (
+              <Room
+                id={room.id}
+                title={room.name}
+                length={room.duration}
+                startedAt={room.start_time}
+                faces={room.users.map((person) => ({
+                  url: `https://eu.ui-avatars.com/api/?name=${person.name
+                    .split(" ")
+                    .join("+")}`,
+                }))}
+                onJoin={async (id) => {
+                  await joinRoom(keycloak.token, id);
+
+                  refetch();
+                }}
+                canJoin={room.id !== user.current_room?.id}
+              />
+            ))}
+          </Rooms>
+          {activeRooms.length == 0 && <NoRooms />}
         </Centerer>
       </Content>
       <Footer />

@@ -51,15 +51,28 @@ export default function SplashHeader({ selected }) {
   // const { keycloak, initialized } = useKeycloak();
 
   let account_button;
-  if (!!keycloak.authenticated) {
+  if (!!keycloak.authenticated && initialized) {
     account_button = (
-      <MenuLink onClick={() => keycloak.logout()}>Logout</MenuLink>
-
+      <Link href="/dashboard">
+        <MenuLink>Dashboard</MenuLink>
+      </Link>
     );
   } else {
     // debugger;
     account_button = (
-      <MenuLink onClick={() => keycloak.login()}>Login</MenuLink>
+      <MenuLink
+        onClick={() =>
+          keycloak.login(
+            process.env.NODE_ENV === "production"
+              ? {
+                  redirectUri: "https://ketchup.sh/dashboard",
+                }
+              : {}
+          )
+        }
+      >
+        Login/Signup
+      </MenuLink>
     );
   }
 
@@ -83,11 +96,6 @@ export default function SplashHeader({ selected }) {
         </MenuGroup>
         <MenuGroup>
           <MenuItem>{account_button}</MenuItem>
-          <Signup>
-            <Link href="/register">
-              <MenuLink>Get Started</MenuLink>
-            </Link>
-          </Signup>
         </MenuGroup>
       </Content>
     </Centerer>

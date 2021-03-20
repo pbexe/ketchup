@@ -23,5 +23,5 @@ class RoomController(Controller):
         total = 0
         for room in rooms:
             if room.today():
-                total += 40
+                total += room.duration
         return total

@@ -8,16 +8,24 @@ from starlette.responses import RedirectResponse
 from fastapi.responses import JSONResponse
 import logging
 
-from settings import APP_BASE_URL, KEYCLOAK_BASE_URL, REALM, CLIENT, AUTH_URL, TOKEN_URL, KEYCLOAK_URL
+from settings import (
+    APP_BASE_URL,
+    KEYCLOAK_BASE_URL,
+    REALM,
+    CLIENT,
+    AUTH_URL,
+    TOKEN_URL,
+    KEYCLOAK_URL,
+)
 
 from fastapi import APIRouter
 
 auth_router = APIRouter()
 
 
-@auth_router.get("/login", tags=["auth"])
-def login() -> RedirectResponse:
-    return RedirectResponse(AUTH_URL)
+# @auth_router.get("/login", tags=["auth"])
+# def login() -> RedirectResponse:
+#     return RedirectResponse(AUTH_URL)
 
 
 @auth_router.get("/authenticate")
@@ -40,7 +48,7 @@ async def auth(code: str) -> RedirectResponse:
 from keycloak import KeycloakOpenID
 
 keycloak_openid = KeycloakOpenID(
-    server_url=KEYCLOAK_URL, client_id="backend", realm_name="ketchup"
+    server_url=KEYCLOAK_URL, client_id="frontend", realm_name="ketchup"
 )
 
 KEYCLOAK_PUBLIC_KEY = (

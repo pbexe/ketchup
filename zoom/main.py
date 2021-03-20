@@ -21,6 +21,7 @@ from models.user import User
 from routes.auth import auth_router
 from routes.room import room_router
 from routes.team import team_router
+from routes.user import user_router
 
 from utils import get_current_user
 
@@ -42,6 +43,7 @@ app = FastAPI(title="Ketchup")
 app.include_router(auth_router, prefix="/auth")
 app.include_router(room_router, prefix="/room")
 app.include_router(team_router, prefix="/team")
+app.include_router(user_router, prefix='/user')
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -61,16 +63,16 @@ async def start():
 
     anonymous_user_id = uuid.uuid4()
 
-    user = await User.create(identifier=anonymous_user_id, anonymous=True)
+    user = await User.create(id=anonymous_user_id, anonymous=True)
 
-    room = await Room.create(identifier=uuid.uuid4())
+    room = await Room.create(id=uuid.uuid4())
     await room.participants.add(user)
     await room.save()
 
     room_pd = await Room_Pydantic.from_queryset_single(Room.get(id=room.id))
 
     encoded_jwt = jwt.encode(
-        {"user": str(user.identifier), "room": str(room.identifier)},
+        {"user": str(user.id), "room": str(room.id)},
         JWT_SECRET,
         algorithm="HS256",
     )
@@ -84,6 +86,7 @@ async def start():
 #     return current_user
 
 if os.environ.get('PRODUCTION') == True and (db_url:= os.environ.get('DATABASE_URL')):
+    print("====== USING PROD DB ======")
     register_tortoise(
         app,
         db_url=db_url,
@@ -92,13 +95,22 @@ if os.environ.get('PRODUCTION') == True and (db_url:= os.environ.get('DATABASE_U
         add_exception_handlers=True,
     ) 
 else:
+    print("====== USING DEV DB ======")
     register_tortoise(
         app,
-        db_url="sqlite://:memory:",
+        db_url="sqlite://db.sqlite",
         modules={"models": ["models.room", "models.user"]},
         generate_schemas=True,
         add_exception_handlers=True,
     )
+
+
+
+
+from setup import setup_tasks
+setup_tasks()
+
+
 
 if __name__ == "__main__":
     uvicorn.run("main:app")
