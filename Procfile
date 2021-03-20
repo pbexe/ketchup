@@ -1,1 +1,1 @@
-web: gunicorn -k uvicorn.workers.UvicornWorker --app-dir zoom main:app
+web: gunicorn -k uvicorn.workers.UvicornWorker --chdir zoom main:app
