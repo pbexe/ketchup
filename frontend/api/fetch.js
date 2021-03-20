@@ -9,10 +9,7 @@ export default async function fetchJson(endpoint, method, token, data) {
       redirect: "follow",
       body: data && JSON.stringify(data),
     };
-    const response = await fetch(
-      `https://ketchup-keycloak.herokuapp.com${endpoint}`,
-      args
-    );
+    const response = await fetch(`https://api.ketchup.sh${endpoint}`, args);
 
     // if the server replies, there's always some data in json
     // if there's a network error, it will throw at the previous line
