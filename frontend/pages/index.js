@@ -4,6 +4,8 @@ import Page from "../components/Page";
 import SplashHeader from "../components/SplashHeader";
 import styled from "styled-components";
 import Footer from "../components/Footer";
+import { useKeycloak } from "@react-keycloak/ssr";
+import { useRouter } from "next/router";
 
 const FancySection = styled.div`
   position: relative;
@@ -71,6 +73,16 @@ const InfoText = styled.div`
 const InfoImage = styled.img``;
 
 export default function Home() {
+  const { keycloak, initialized } = useKeycloak();
+
+  const router = useRouter();
+
+  React.useEffect(() => {
+    if (initialized && !keycloak.authenticated) {
+      router.push("/");
+    }
+  }, [initialized, keycloak]);
+
   return (
     <Page>
       <SplashHeader selected={1} />

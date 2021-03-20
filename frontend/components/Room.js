@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import moment from "moment";
 import Faces from "./Faces";
@@ -76,14 +77,22 @@ const Button = styled.div`
   }
 `;
 
-export default function Room({ title, length, startedAt }) {
-  const { minutes, seconds } = getTimeLeft(startedAt, length);
+export default function Room({ id, title, length, startedAt, faces, onJoin }) {
+  const [time, setTime] = React.useState(getTimeLeft(startedAt, length));
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      setTime(getTimeLeft(startedAt, length));
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  });
+
   return (
     <Card>
       <TimeContainer>
         <TimeLeftContainer>
           <Time>
-            {minutes}:{seconds}
+            {time.minutes}:{time.seconds}
           </Time>
           <LeftText>mins left</LeftText>
         </TimeLeftContainer>
@@ -92,23 +101,8 @@ export default function Room({ title, length, startedAt }) {
       <StartedAgo>Started {moment(startedAt).fromNow()}</StartedAgo>
       <Title>{title}</Title>
       <Actions>
-        <Faces
-          faces={[
-            {
-              url: "/images/fancyBackground.svg",
-            },
-            {
-              url: "/images/fancyBackground.svg",
-            },
-            {
-              url: "/images/fancyBackground.svg",
-            },
-            {
-              url: "/images/fancyBackground.svg",
-            },
-          ]}
-        />
-        <Button>Join Now</Button>
+        <Faces faces={faces} />
+        <Button onClick={() => onJoin(id)}>Join Now</Button>
       </Actions>
     </Card>
   );

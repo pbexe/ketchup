@@ -1,15 +1,16 @@
-export default async function fetchJson(endpoint, method, data) {
+export default async function fetchJson(endpoint, method, token, data) {
   try {
     const args = {
       method,
       headers: {
         "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
       },
       redirect: "follow",
       body: data && JSON.stringify(data),
     };
     const response = await fetch(
-      `https://1042b460f22f.ngrok.io${endpoint}`,
+      `https://9abb8fb0b054.ngrok.io${endpoint}`,
       args
     );
 

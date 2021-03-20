@@ -1,3 +1,4 @@
+import React from "react";
 import Centerer from "./Centerer";
 import PropTypes from "prop-types";
 import styled from "styled-components";
@@ -6,7 +7,6 @@ import { getTimeLeft } from "../helpers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import Faces from "./Faces";
-import { rooms } from "../api/rooms";
 
 const Play = styled.img`
   padding-left: 30px;
@@ -90,9 +90,23 @@ const Actions = styled.div`
   align-items: center;
 `;
 
-function TimeBar({ runningTimer }) {
+function TimeBar({ runningTimer, onStart, onEnd }) {
   const [time, setTime] = useState("45");
-  rooms();
+  const [text, setText] = useState("");
+
+  const [timeLeft, setTimeLeft] = React.useState();
+
+  React.useEffect(() => {
+    if (!runningTimer) {
+      return;
+    }
+    setTimeLeft(getTimeLeft(runningTimer.startedAt, runningTimer.length));
+    const timer = setTimeout(() => {
+      setTimeLeft(getTimeLeft(runningTimer.startedAt, runningTimer.length));
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [runningTimer]);
 
   return (
     <>
@@ -100,7 +114,11 @@ function TimeBar({ runningTimer }) {
         <Flex>
           {!runningTimer && (
             <>
-              <Input placeholder={"I'm working on..."} />
+              <Input
+                placeholder={"I'm working on..."}
+                value={text}
+                onChange={(el) => setText(el.target.value)}
+              />
               <select
                 value={time}
                 onChange={(e) => setTime(event.target.value)}
@@ -111,23 +129,18 @@ function TimeBar({ runningTimer }) {
                 <option value="60">60 min</option>
                 <option value="90">90 min</option>
               </select>
-              <Play src="/images/playButton.svg" />
+              <Play
+                src="/images/playButton.svg"
+                onClick={() => onStart(time, text)}
+              />
             </>
           )}
-          {runningTimer && (
+          {runningTimer && timeLeft && (
             <>
               <Info>
                 <Title>{runningTimer.title}</Title>
                 <TimeLeft>
-                  {
-                    getTimeLeft(runningTimer.startedAt, runningTimer.length)
-                      .minutes
-                  }
-                  :
-                  {
-                    getTimeLeft(runningTimer.startedAt, runningTimer.length)
-                      .seconds
-                  }
+                  {timeLeft.minutes}:{timeLeft.seconds}
                 </TimeLeft>
                 <TotalTime>{runningTimer.length} min</TotalTime>
               </Info>
@@ -145,7 +158,7 @@ function TimeBar({ runningTimer }) {
                     },
                   ]}
                 />
-                <StopButton>
+                <StopButton onClick={onEnd}>
                   <FontAwesomeIcon icon={faTimes} />
                 </StopButton>
               </Actions>

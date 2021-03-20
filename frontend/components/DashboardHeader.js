@@ -6,7 +6,7 @@ import Link from "next/link";
 const Logo = styled.img`
   height: 23px;
   margin-right: 102px;
-  
+
   :hover {
     cursor: pointer;
   }
@@ -39,21 +39,31 @@ const Underline = styled.div`
 const MenuLink = styled.a`
   color: inherit;
   text-decoration: inherit;
-`
+`;
 
-export default function DashboardHeader({ selected }) {
+export default function DashboardHeader({ selected, name }) {
   return (
     <>
       <Centerer>
         <Content>
           <MenuGroup>
-            <Link href="/"><Logo src="/images/redLogo.svg" /></Link>
-            <MenuItem selected={selected == 1}><Link href="/dashboard"><MenuLink>Dashboard</MenuLink></Link></MenuItem>
-            <MenuItem selected={selected == 2}><Link href="/team"><MenuLink>Team</MenuLink></Link></MenuItem>
+            <Link href="/">
+              <Logo src="/images/redLogo.svg" />
+            </Link>
+            <MenuItem selected={selected == 1}>
+              <Link href="/dashboard">
+                <MenuLink>Dashboard</MenuLink>
+              </Link>
+            </MenuItem>
+            <MenuItem selected={selected == 2}>
+              <Link href="/team">
+                <MenuLink>Team</MenuLink>
+              </Link>
+            </MenuItem>
           </MenuGroup>
           <MenuGroup>
             <MenuItem>
-              Tom Emmerson <Icon src={"/images/downwardsArrow.svg"} />
+              {name} <Icon src={"/images/downwardsArrow.svg"} />
             </MenuItem>
           </MenuGroup>
         </Content>
