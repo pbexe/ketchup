@@ -16,6 +16,10 @@ Pillow = "*"
 psycopg2 = "*"
 gunicorn = "*"
 whitenoise = "*"
+pyjwt = "*"
+fastapi = "*"
+tortoise-orm = "*"
+uvicorn = "*"
 
 [dev-packages]
 

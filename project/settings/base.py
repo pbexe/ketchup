@@ -6,7 +6,9 @@ import os
 
 DEBUG = ENV_BOOL("DEBUG", False)
 SECRET_KEY = ENV_STR("SECRET_KEY", "secret" if DEBUG else os.environ["SECRET"])
-ALLOWED_HOSTS = ENV_LIST("ALLOWED_HOSTS", ",", ["*"] if DEBUG else ["starthack-template.herokuapp.com"])
+ALLOWED_HOSTS = ENV_LIST(
+    "ALLOWED_HOSTS", ",", ["*"] if DEBUG else ["starthack-template.herokuapp.com"]
+)
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -16,7 +18,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "django.contrib.sites",
-
     "corsheaders",
     "rest_framework",
     "rest_framework.authtoken",
@@ -24,12 +25,10 @@ INSTALLED_APPS = [
     "allauth.account",
     "rest_auth",
     "rest_auth.registration",
-    
-    "users.apps.UsersConfig",
+    # "users.apps.UsersConfig",
     "core.apps.CoreConfig",
-
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.github',
+    "allauth.socialaccount",
+    "allauth.socialaccount.providers.github",
 ]
 
 MIDDLEWARE = [
@@ -40,7 +39,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    "whitenoise.middleware.WhiteNoiseMiddleware",
 ]
 
 ROOT_URLCONF = "project.urls"
@@ -65,21 +64,24 @@ WSGI_APPLICATION = "project.wsgi.application"
 
 if DEBUG:
     from pathlib import Path
+
     BASE_DIR = Path(__file__).resolve().parent.parent.parent
     DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
         }
     }
 else:
     DATABASES = {"default": dj_database_url.config()}
 
 
-AUTH_USER_MODEL = 'users.User'
+# AUTH_USER_MODEL = 'users.User'
 
 AUTH_PASSWORD_VALIDATORS = [
-    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+    },
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
@@ -92,7 +94,7 @@ AUTHENTICATION_BACKENDS = (
 
 # allauth settings
 
-ACCOUNT_AUTHENTICATION_METHOD = 'username'
+ACCOUNT_AUTHENTICATION_METHOD = "username"
 ACCOUNT_EMAIL_REQUIRED = False
 ACCOUNT_USERNAME_REQUIRED = True
 
@@ -100,7 +102,6 @@ ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = "none"
 LOGOUT_ON_PASSWORD_CHANGE = False
 LOGIN_REDIRECT_URL = "/"
-
 
 
 LANGUAGE_CODE = "en-us"
@@ -117,7 +118,7 @@ STATIC_URL = ENV_STR("STATIC_URL", "/static/")
 STATIC_ROOT = ENV_STR("STATIC_ROOT", ABS_PATH("static"))
 MEDIA_URL = ENV_STR("MEDIA_URL", "/media/")
 MEDIA_ROOT = ABS_PATH(ENV_STR("MEDIA_ROOT", "media"))
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 
 # email settings
