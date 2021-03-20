@@ -163,11 +163,11 @@ export default function Team() {
       <Content>
         <DashboardHeader selected={2} />
         <TimeBar
-          runningTimer={{
-            title: "Daily Standup",
-            startedAt: moment().subtract(29, "minutes"),
-            length: 45,
-          }}
+        // runningTimer={{
+        //   title: "Daily Standup",
+        //   startedAt: moment().subtract(29, "minutes"),
+        //   length: 45,
+        // }}
         />
 
         <Centerer>

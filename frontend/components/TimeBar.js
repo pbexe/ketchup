@@ -100,13 +100,19 @@ function TimeBar({ runningTimer, onStart, onEnd }) {
     if (!runningTimer) {
       return;
     }
-    setTimeLeft(getTimeLeft(runningTimer.startedAt, runningTimer.length));
+
     const timer = setTimeout(() => {
       setTimeLeft(getTimeLeft(runningTimer.startedAt, runningTimer.length));
     }, 1000);
 
-    return () => clearTimeout(timer);
-  }, [runningTimer]);
+    return () => {
+      clearTimeout(timer);
+    };
+  });
+
+  if (timeLeft && timeLeft.minutes == "00" && timeLeft.seconds == "00") {
+    runningTimer = undefined;
+  }
 
   return (
     <>
@@ -138,26 +144,14 @@ function TimeBar({ runningTimer, onStart, onEnd }) {
           {runningTimer && timeLeft && (
             <>
               <Info>
-                <Title>{runningTimer.title}</Title>
+                <Title>{runningTimer.title || "Untitled Room"}</Title>
                 <TimeLeft>
                   {timeLeft.minutes}:{timeLeft.seconds}
                 </TimeLeft>
                 <TotalTime>{runningTimer.length} min</TotalTime>
               </Info>
               <Actions>
-                <Faces
-                  faces={[
-                    {
-                      url: "/images/fancyBackground.svg",
-                    },
-                    {
-                      url: "/images/fancyBackground.svg",
-                    },
-                    {
-                      url: "/images/fancyBackground.svg",
-                    },
-                  ]}
-                />
+                <Faces faces={runningTimer.faces} />
                 <StopButton onClick={onEnd}>
                   <FontAwesomeIcon icon={faTimes} />
                 </StopButton>

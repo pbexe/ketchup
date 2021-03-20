@@ -17,6 +17,7 @@ import {
 import React from "react";
 import { useKeycloak } from "@react-keycloak/ssr";
 import { useRouter } from "next/router";
+import { getTimeLeft } from "../helpers";
 
 const Welcome = styled.div`
   font-size: 24px;
@@ -69,26 +70,33 @@ export default function Dashboard() {
 
   const router = useRouter();
 
+  const refetch = async () => {
+    const user = await keycloak.loadUserProfile();
+    setName(user.firstName);
+    const u = await getUser(keycloak.token);
+    setUser(u);
+    const rooms = await getRooms(keycloak.token);
+    setRooms(rooms);
+  };
+
   React.useEffect(() => {
     if (initialized && !keycloak.authenticated) {
       router.push("/");
     }
-    const f = async () => {
-      const user = await keycloak.loadUserProfile();
-      setName(user.firstName);
-      const u = await getUser(keycloak.token);
-      setUser(u);
-      console.log("u", u);
-      const rooms = await getRooms(keycloak.token);
-      setRooms(rooms);
-    };
-    f();
+    refetch();
   }, [initialized, keycloak]);
 
   if (!initialized) {
     return <div>Loading</div>;
   }
 
+  const activeRooms = rooms.filter((room) => {
+    const left = getTimeLeft(room.start_time, room.duration);
+    if (left.minutes == "00" && left.seconds == "00") {
+      return false;
+    }
+    return true;
+  });
   return (
     <Page>
       <Content>
@@ -99,6 +107,10 @@ export default function Dashboard() {
               title: user.current_room.name,
               startedAt: user.current_room.start_time,
               length: user.current_room.duration,
+              faces:
+                user.current_room.users?.map((person) => ({
+                  url: `https://eu.ui-avatars.com/api/?name=${person.firstName}+${person.lastName}`,
+                })) ?? [],
             }
           }
           onStart={async (duration, name) => {
@@ -106,16 +118,14 @@ export default function Dashboard() {
             console.log(newRoom);
 
             // Join the created room
-            await joinRoom(keycloak.token, newRoom.uuid);
+            await joinRoom(keycloak.token, newRoom.id);
 
-            const rooms = await getRooms(keycloak.token);
-            setRooms(rooms);
+            refetch();
           }}
           onEnd={async () => {
             await leaveRoom(keycloak.token);
 
-            const rooms = await getRooms(keycloak.token);
-            setRooms(rooms);
+            refetch();
           }}
         />
         <Centerer>
@@ -126,7 +136,7 @@ export default function Dashboard() {
             <ActiveRooms>Active Rooms</ActiveRooms>
           </FlexActiveRooms>
           <Rooms>
-            {rooms.map((room) => (
+            {activeRooms.map((room) => (
               <Room
                 id={room.id}
                 title={room.name}
@@ -138,13 +148,13 @@ export default function Dashboard() {
                 onJoin={async (id) => {
                   await joinRoom(keycloak.token, id);
 
-                  const rooms = await getRooms(keycloak.token);
-                  setRooms(rooms);
+                  refetch();
                 }}
+                canJoin={room.id !== user.current_room?.id}
               />
             ))}
           </Rooms>
-          {rooms.length == 0 && <NoRooms />}
+          {activeRooms.length == 0 && <NoRooms />}
         </Centerer>
       </Content>
       <Footer />

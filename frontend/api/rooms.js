@@ -22,4 +22,6 @@ export async function joinRoom(token, uuid) {
   });
 }
 
-export async function leaveRoom(token) {}
+export async function leaveRoom(token) {
+  return await fetchJson("/user/room", "DELETE", token);
+}

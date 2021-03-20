@@ -60,6 +60,7 @@ const Actions = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 40px;
 `;
 
 const Button = styled.div`
@@ -77,7 +78,15 @@ const Button = styled.div`
   }
 `;
 
-export default function Room({ id, title, length, startedAt, faces, onJoin }) {
+export default function Room({
+  id,
+  title,
+  length,
+  startedAt,
+  faces,
+  onJoin,
+  canJoin,
+}) {
   const [time, setTime] = React.useState(getTimeLeft(startedAt, length));
   React.useEffect(() => {
     const timer = setTimeout(() => {
@@ -99,10 +108,10 @@ export default function Room({ id, title, length, startedAt, faces, onJoin }) {
         <TotalTime>{length} min</TotalTime>
       </TimeContainer>
       <StartedAgo>Started {moment(startedAt).fromNow()}</StartedAgo>
-      <Title>{title}</Title>
+      <Title>{title || "Untitled Room"}</Title>
       <Actions>
         <Faces faces={faces} />
-        <Button onClick={() => onJoin(id)}>Join Now</Button>
+        {canJoin && <Button onClick={() => onJoin(id)}>Join Now</Button>}
       </Actions>
     </Card>
   );
