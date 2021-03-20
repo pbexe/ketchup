@@ -20,6 +20,7 @@ pyjwt = "*"
 fastapi = "*"
 tortoise-orm = "*"
 uvicorn = "*"
+python-keycloak = "*"
 
 [dev-packages]
 
