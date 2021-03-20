@@ -103,8 +103,11 @@ else:
     )
 
 
+
+
 from setup import setup_tasks
 setup_tasks()
+
 
 
 if __name__ == "__main__":

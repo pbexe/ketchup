@@ -38,7 +38,13 @@ async def get_me(current_user: dict = Depends(demand_current_user)):
     try:
         user = await User.get(id=ident)
     except DoesNotExist:
-        user = await User.create(id=str(ident))
+        details = {
+            "name": current_user.get("name", "Ketchup user"),
+            "email": current_user.get("email", "user@ketchup.sh"),
+            "username": current_user.get("preferred_username"),
+        }
+
+        user = await User.create(id=str(ident), **details)
 
     return await User_Pydantic.from_queryset_single(User.get(id=user.id))
 
