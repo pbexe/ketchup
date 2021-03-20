@@ -152,18 +152,6 @@ export default function Team() {
             email: 'alex@alexander.com',
             joined: moment().subtract(29, "hours").subtract(12, "seconds"),
         },
-        {
-            name: 'Alexander Craggs',
-            image: '/images/fancyBackground.svg',
-            email: 'alex@alexander.com',
-            joined: moment().subtract(29, "hours").subtract(12, "seconds"),
-        },
-        {
-            name: 'Alexander Craggs',
-            image: '/images/fancyBackground.svg',
-            email: 'alex@alexander.com',
-            joined: moment().subtract(29, "hours").subtract(12, "seconds"),
-        },
     ]
 
     return (
