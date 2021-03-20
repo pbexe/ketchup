@@ -1,4 +1,4 @@
-# starthack-template
+# ketchup
 
 For local development set `DEBUG` to `true`.
 
