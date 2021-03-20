@@ -53,16 +53,13 @@ export default function SplashHeader({ selected }) {
   let account_button;
   if (!!keycloak.authenticated) {
     account_button = (
-      <button onClick={() => keycloak.logout()} href="#">
-        <MenuLink>logout</MenuLink>
-      </button>
+      <MenuLink onClick={() => keycloak.logout()}>Logout</MenuLink>
+
     );
   } else {
     // debugger;
     account_button = (
-      <button onClick={() => keycloak.login()} href="#">
-        <MenuLink>Login</MenuLink>
-      </button>
+      <MenuLink onClick={() => keycloak.login()}>Login</MenuLink>
     );
   }
 
