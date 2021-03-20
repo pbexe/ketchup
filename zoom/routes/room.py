@@ -30,16 +30,16 @@ async def create_room(room: controller.creation_model):
 
 
 @router.put("/{id}", response_model=controller.pydantic_model)
-async def update_room(id, room: controller.pydantic_model):
+async def update_room(id: UUID4, room: controller.pydantic_model):
     return await controller.update(id, room)
 
 
 @router.get("/{id}", response_model=controller.pydantic_model)
-async def get_room(id: int):
+async def get_room(id: UUID4):
     return await controller.retrieve(id)
 
 
 @router.get("/{id}/participants", response_model=List[User_Pydantic])
-async def get_participants(id: int):
+async def get_participants(id: UUID4):
     return await controller.getParticipants(id)
 
