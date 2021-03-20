@@ -7,6 +7,7 @@ import Room from "../components/Room";
 import Footer from "../components/Footer";
 import moment from "moment";
 import NoRooms from "../components/NoRooms";
+import Head from "next/head";
 import {
   createRoom,
   getRooms,
@@ -121,6 +122,15 @@ export default function Dashboard() {
 
   return (
     <Page>
+      <Head>
+        <title>Ketchup Dashboard</title>
+        <link
+          rel="icon"
+          href="images/logo-icon.svg"
+          sizes="any"
+          type="image/svg+xml"
+        />
+      </Head>
       <Content>
         <DashboardHeader selected={1} name={name} />
         <TimeBar
