@@ -12,6 +12,11 @@ const Welcome = styled.div`
   padding-top: 40px;
 `;
 
+const Content = styled(Page)`
+  flex-grow: 1;
+  height: 100%;
+`;
+
 const WelcomeAction = styled.div`
   font-size: 14;
   font-weight: 600;
@@ -41,41 +46,43 @@ const HorizontalRule = styled.hr`
 export default function Dashboard() {
   return (
     <Page>
-      <DashboardHeader selected={1} />
-      <TimeBar />
-      <Centerer>
-        <Welcome>Hey Tom,</Welcome>
-        <WelcomeAction>Join a room to get started</WelcomeAction>
-        <HorizontalRule />
-        <ActiveRooms>Active Rooms</ActiveRooms>
-        <Rooms>
-          <Room
-            title={"Daily Standup"}
-            start={new Date() - 1000 * 60 * 60 * 5}
-            length={45}
-          />
-          <Room
-            title={"Sprint Retrospective"}
-            start={new Date() - 1000 * 60 * 60 * 5}
-            length={45}
-          />
-          <Room
-            title={"Work on API"}
-            start={new Date() - 1000 * 60 * 60 * 5}
-            length={45}
-          />
-          <Room
-            title={"Work on API"}
-            start={new Date() - 1000 * 60 * 60 * 5}
-            length={45}
-          />
-          <Room
-            title={"Work on API"}
-            start={new Date() - 1000 * 60 * 60 * 5}
-            length={45}
-          />
-        </Rooms>
-      </Centerer>
+      <Content>
+        <DashboardHeader selected={1} />
+        <TimeBar />
+        <Centerer>
+          <Welcome>Hey Tom,</Welcome>
+          <WelcomeAction>Join a room to get started</WelcomeAction>
+          <HorizontalRule />
+          <ActiveRooms>Active Rooms</ActiveRooms>
+          <Rooms>
+            <Room
+              title={"Daily Standup"}
+              start={new Date() - 1000 * 60 * 60 * 5}
+              length={45}
+            />
+            <Room
+              title={"Sprint Retrospective"}
+              start={new Date() - 1000 * 60 * 60 * 5}
+              length={45}
+            />
+            <Room
+              title={"Work on API"}
+              start={new Date() - 1000 * 60 * 60 * 5}
+              length={45}
+            />
+            <Room
+              title={"Work on API"}
+              start={new Date() - 1000 * 60 * 60 * 5}
+              length={45}
+            />
+            <Room
+              title={"Work on API"}
+              start={new Date() - 1000 * 60 * 60 * 5}
+              length={45}
+            />
+          </Rooms>
+        </Centerer>
+      </Content>
       <Footer />
     </Page>
   );
