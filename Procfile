@@ -1,2 +1,1 @@
-release: python manage.py migrate
-web: gunicorn project.wsgi --log-file -
+web: uvicorn zoom.main:app --host=0.0.0.0 --port=${PORT:-5000}
