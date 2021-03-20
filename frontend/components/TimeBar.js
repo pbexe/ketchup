@@ -6,6 +6,7 @@ import { getTimeLeft } from "../helpers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import Faces from "./Faces";
+import { rooms } from "../api/rooms";
 
 const Play = styled.img`
   padding-left: 30px;
@@ -91,6 +92,7 @@ const Actions = styled.div`
 
 function TimeBar({ runningTimer }) {
   const [time, setTime] = useState("45");
+  rooms();
 
   return (
     <>

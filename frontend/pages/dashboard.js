@@ -7,6 +7,8 @@ import Room from "../components/Room";
 import Footer from "../components/Footer";
 import moment from "moment";
 import NoRooms from "../components/NoRooms";
+import { user } from "../api/rooms";
+import React from "react";
 
 const Welcome = styled.div`
   font-size: 24px;
@@ -57,6 +59,11 @@ const Clickable = styled.img`
 `
 
 export default function Dashboard() {
+  // React.useEffect(async () => {
+  //   const u = await user();
+  //   console.log("u", u);
+  // });
+
   return (
     <Page>
       <Content>
@@ -74,10 +81,8 @@ export default function Dashboard() {
           <HorizontalRule />
           <FlexActiveRooms>
             <ActiveRooms>Active Rooms</ActiveRooms>
-            <Clickable src="/images/createARoom.svg" />
           </FlexActiveRooms>
-          <Rooms>
-          </Rooms>
+          <Rooms></Rooms>
           <NoRooms />
         </Centerer>
       </Content>
