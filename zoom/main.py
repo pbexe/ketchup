@@ -20,12 +20,35 @@ from models.user import User
 
 from routes.auth import auth_router
 from routes.room import room_router
+from routes.team import team_router
 
 from utils import get_current_user
+
+from fastapi.middleware.cors import CORSMiddleware
+
+
+origins = [
+    "https://ketchup.sh",
+    "https://*-pbexe.vercel.app/*",
+    "https://localhost.tiangolo.com",
+    "http://localhost:*",
+    "http://localhost:8080",
+    "http://localhost:3000",
+    "http://localhost:8000",
+    "*"
+]
 
 app = FastAPI(title="Ketchup")
 app.include_router(auth_router, prefix="/auth")
 app.include_router(room_router, prefix="/room")
+app.include_router(team_router, prefix="/team")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class StartResponse(BaseModel):
@@ -55,10 +78,10 @@ async def start():
     return StartResponse(room=room_pd, token=encoded_jwt)
 
 
-@app.get("/user")
-async def get_user(current_user: dict = Depends(get_current_user)):
-    logging.info(current_user)
-    return current_user
+# @app.get("/user")
+# async def get_user(current_user: dict = Depends(get_current_user)):
+#     logging.info(current_user)
+#     return current_user
 
 if os.environ.get('PRODUCTION') == True and (db_url:= os.environ.get('DATABASE_URL')):
     register_tortoise(
