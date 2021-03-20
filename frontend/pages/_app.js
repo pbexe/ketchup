@@ -7,7 +7,15 @@ import "../styles/globals.css";
 //   clientId: "react-test",
 // };
 
-function MyApp({ Component, pageProps }) {
+import { SSRKeycloakProvider, SSRCookies } from "@react-keycloak/ssr";
+
+const keycloakCfg = {
+  realm: "ketchup",
+  url: "https://ketchup-keycloak.herokuapp.com/auth",
+  clientId: "frontend",
+};
+
+function MyApp({ Component, pageProps, cookies }) {
   // if (typeof window === "undefined") {
   //   return <Component {...pageProps} />;
   // }
@@ -21,7 +29,14 @@ function MyApp({ Component, pageProps }) {
   //   </ReactKeycloakProvider>
   // );
 
-  return <Component {...pageProps} />;
+  return (
+    <SSRKeycloakProvider
+      keycloakConfig={keycloakCfg}
+      persistor={SSRCookies(cookies)}
+    >
+      <Component {...pageProps} />
+    </SSRKeycloakProvider>
+  );
   // <SSRKeycloakProvider>
 
   // </SSRKeycloakProvider>;
