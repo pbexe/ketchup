@@ -1,5 +1,10 @@
+import
+
 APP_BASE_URL = "http://localhost:8000/"
-KEYCLOAK_BASE_URL = "http://localhost:8080"
+if (os.environ.get('KEYCLOAK_BASE_URL')):
+    KEYCLOAK_BASE_URL = os.environ.get('KEYCLOAK_BASE_URL')
+else:
+    KEYCLOAK_BASE_URL = "http://localhost:8080"
 KEYCLOAK_URL = KEYCLOAK_BASE_URL + "/auth/"
 REALM = "ketchup"
 CLIENT = "backend"
