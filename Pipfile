@@ -24,6 +24,8 @@ python-keycloak = "*"
 uvloop = "*"
 httptools = "*"
 pypika = "*"
+iso8601 = "*"
+aiosqlite = "*"
 
 [dev-packages]
 
