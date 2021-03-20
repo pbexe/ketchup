@@ -10,7 +10,12 @@ terraform {
 provider "keycloak" {
   client_id     = "terraform"
   client_secret = var.keycloak_provider_secret
-  url           = "http://localhost:8080"
+  url           = var.keycloak_url
+}
+
+variable "keycloak_url" {
+  description = "The url of the keycloak server"
+  type        = string
 }
 
 variable "keycloak_provider_secret" {
