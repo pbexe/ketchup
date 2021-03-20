@@ -1,20 +1,115 @@
 import styled from "styled-components";
+import moment from "moment";
+import Faces from "./Faces";
+import { getTimeLeft } from "../helpers";
 
 const Card = styled.div`
-  border-radius: 15px;
+  border-radius: 12px;
   display: inline-block;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
-
+  box-shadow: 0px 0px 19px #00000012;
   padding: 1.5rem;
-
-  height: 150px;
+  height: 138px;
   width: 300px;
+  margin: 13px;
 `;
 
-export default function Room({ title, start, length }) {
+const TimeContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const TimeLeftContainer = styled.div`
+  display: flex;
+`;
+
+const Time = styled.div`
+  font-size: 18px;
+  font-weight: 700;
+`;
+
+const LeftText = styled.div`
+  font-weight: 700;
+  color: #afafbe;
+  font-size: 14px;
+  margin-left: 8px;
+`;
+
+const TotalTime = styled.div`
+  font-weight: 700;
+  color: #afafbe;
+  font-size: 14px;
+`;
+
+const StartedAgo = styled.div`
+  font-weight: 400;
+  color: #afafbe;
+  font-size: 12px;
+  margin-top: 5px;
+`;
+
+const Title = styled.div`
+  font-weight: 500;
+  font-size: 20px;
+  margin-top: 6px;
+  margin-bottom: 19px;
+`;
+
+const Actions = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const Button = styled.div`
+  background: #7ad143;
+  border-radius: 8px;
+  padding: 9px 25px;
+  height: 17px;
+  color: white;
+  font-size: 14px;
+  transition: all 0.2s;
+  cursor: pointer;
+  &:hover {
+    background: #71c13e;
+    box-shadow: 0px 4px 6px #00000021;
+  }
+`;
+
+export default function Room({ title, length, startedAt }) {
+  const { minutes, seconds } = getTimeLeft(startedAt, length);
   return (
     <Card>
-      {title} {start} {length}
+      <TimeContainer>
+        <TimeLeftContainer>
+          <Time>
+            {minutes}:{seconds}
+          </Time>
+          <LeftText>mins left</LeftText>
+        </TimeLeftContainer>
+        <TotalTime>{length} min</TotalTime>
+      </TimeContainer>
+      <StartedAgo>Started {moment(startedAt).fromNow()}</StartedAgo>
+      <Title>{title}</Title>
+      <Actions>
+        <Faces
+          faces={[
+            {
+              url: "/images/fancyBackground.svg",
+            },
+            {
+              url: "/images/fancyBackground.svg",
+            },
+            {
+              url: "/images/fancyBackground.svg",
+            },
+            {
+              url: "/images/fancyBackground.svg",
+            },
+          ]}
+        />
+        <Button>Join Now</Button>
+      </Actions>
     </Card>
   );
 }
