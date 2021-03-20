@@ -201,7 +201,7 @@ export default function Team() {
                             {
                                 headerName: 'Joining Date',
                                 component: (user) => (
-                                    <p>Joined {user.joined.fromNow()}</p>
+                                    <div>Joined {user.joined.fromNow()}</div>
                                 )
                             }
                         ]}

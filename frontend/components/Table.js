@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const DEFAULT_COLUMN_WIDTH = 100;
+const DEFAULT_COLUMN_WIDTH = 200;
 
 const Container = styled.div`
   display: flex;
