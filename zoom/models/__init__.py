@@ -1,3 +1,2 @@
 from .room import Room
-from .team import Team
-from .user import User
+from .user import User, Team

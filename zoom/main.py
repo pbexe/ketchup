@@ -24,10 +24,32 @@ from routes.team import team_router
 
 from utils import get_current_user
 
+from fastapi.middleware.cors import CORSMiddleware
+
+
+origins = [
+    "https://ketchup.sh",
+    "https://*-pbexe.vercel.app/*",
+    "https://localhost.tiangolo.com",
+    "http://localhost:*",
+    "http://localhost:8080",
+    "http://localhost:3000",
+    "http://localhost:8000",
+    "*"
+]
+
 app = FastAPI(title="Ketchup")
 app.include_router(auth_router, prefix="/auth")
 app.include_router(room_router, prefix="/room")
 app.include_router(team_router, prefix="/team")
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 class StartResponse(BaseModel):
     room: Room_Pydantic
