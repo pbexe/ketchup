@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Link from 'next/link'
 
 const Container = styled.div`
   display: flex;
@@ -11,20 +12,28 @@ const Container = styled.div`
 const Logo = styled.img`
   height: 27px;
   margin: 0px 43px;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
-const Link = styled.div`
+const StyledLink = styled.a`
   color: #c8c8d2;
   font-size: 15px;
   font-weight: 300;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export default function Footer() {
   return (
     <Container>
-      <Link>Contact us</Link>
-      <Logo src={"/images/greyLogo.svg"} />
-      <Link>Privacy Policy</Link>
+      <StyledLink>Contact us</StyledLink>
+      <Link href="/"><Logo src={"/images/greyLogo.svg"} /></Link>
+      <Link href="/privacy"><StyledLink>Privacy Policy</StyledLink></Link>
     </Container>
   );
 }

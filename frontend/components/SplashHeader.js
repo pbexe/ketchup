@@ -1,10 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import Centerer from "./Centerer";
+import Link from 'next/link';
 
 const Logo = styled.img`
   height: 23px;
   margin-right: 102px;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const Content = styled.div`
@@ -22,6 +27,15 @@ const MenuItem = styled.div`
   padding: 0px 19px;
   font-weight: ${(props) => (props.selected ? 500 : 300)};
   font-size: 14px;
+  
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+const MenuLink = styled.div`
+  text-decoration: none;
+  color: inherit;
 `;
 
 const Signup = styled(MenuItem)`
@@ -36,13 +50,13 @@ export default function SplashHeader({ selected }) {
     <Centerer>
       <Content>
         <MenuGroup>
-          <Logo src="/images/redLogo.svg" />
-          <MenuItem selected={selected == 1}>Who are we?</MenuItem>
-          <MenuItem selected={selected == 2}>Contact us</MenuItem>
+          <Link href="/"><Logo src="/images/redLogo.svg" /></Link>
+          <MenuItem selected={selected == 1}><Link href="/"><MenuLink>Who are we?</MenuLink></Link></MenuItem>
+          <MenuItem selected={selected == 2}><Link href="/contact"><MenuLink>Contact us</MenuLink></Link></MenuItem>
         </MenuGroup>
         <MenuGroup>
-          <MenuItem>Login</MenuItem>
-          <Signup>Get Started</Signup>
+          <MenuItem><Link href="/login"><MenuLink>Login</MenuLink></Link></MenuItem>
+          <Signup><Link href="/register"><MenuLink>Get Started</MenuLink></Link></Signup>
         </MenuGroup>
       </Content>
     </Centerer>
