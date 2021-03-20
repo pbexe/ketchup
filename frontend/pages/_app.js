@@ -7,6 +7,7 @@ import "../styles/globals.css";
 //   clientId: "react-test",
 // };
 
+import cookie from "cookie";
 import { SSRKeycloakProvider, SSRCookies } from "@react-keycloak/ssr";
 
 const keycloakCfg = {
@@ -41,5 +42,19 @@ function MyApp({ Component, pageProps, cookies }) {
 
   // </SSRKeycloakProvider>;
 }
+
+function parseCookies(req) {
+  if (!req || !req.headers) {
+    return {};
+  }
+  return cookie.parse(req.headers.cookie || "");
+}
+
+MyApp.getInitialProps = async (context) => {
+  // Extract cookies from AppContext
+  return {
+    cookies: parseCookies(context.ctx.req),
+  };
+};
 
 export default MyApp;
