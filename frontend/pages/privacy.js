@@ -42,6 +42,10 @@ const StyledLink = styled.a`
     color: #ff5858;
     text-decoration: none;
     font-weight: 600;
+
+    :hover {
+      cursor: pointer;
+    }
 `;
 
 const Effective = styled.p`

@@ -6,6 +6,10 @@ import Link from "next/link";
 const Logo = styled.img`
   height: 23px;
   margin-right: 102px;
+  
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 const Icon = styled.img``;
@@ -39,6 +43,11 @@ const Underline = styled.div`
   border-bottom: 1px solid #ecedf7;
 `;
 
+const MenuLink = styled.a`
+  color: inherit;
+  text-decoration: inherit;
+`
+
 export default function DashboardHeader({ selected }) {
   return (
     <>
@@ -46,8 +55,8 @@ export default function DashboardHeader({ selected }) {
         <Content>
           <MenuGroup>
             <Link href="/"><Logo src="/images/redLogo.svg" /></Link>
-            <MenuItem selected={selected == 1}><Link href="/dashboard">Dashboard</Link></MenuItem>
-            <MenuItem selected={selected == 2}>Team</MenuItem>
+            <MenuItem selected={selected == 1}><Link href="/dashboard"><MenuLink>Dashboard</MenuLink></Link></MenuItem>
+            <MenuItem selected={selected == 2}><Link href="/team"><MenuLink>Team</MenuLink></Link></MenuItem>
           </MenuGroup>
           <MenuGroup>
             <MenuItem>

@@ -7,7 +7,7 @@ const Card = styled.div`
   display: inline-block;
   box-shadow: 0px 0px 19px #00000012;
   padding: 1.5rem;
-  height: 150px;
+  height: 138px;
   width: 300px;
   margin: 13px;
 `;
@@ -50,7 +50,7 @@ const StartedAgo = styled.div`
 const Title = styled.div`
   font-weight: 500;
   font-size: 20px;
-  margin-top: 22px;
+  margin-top: 6px;
   margin-bottom: 19px;
 `;
 
