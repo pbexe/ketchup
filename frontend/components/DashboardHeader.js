@@ -25,6 +25,7 @@ const MenuItem = styled.div`
   padding: 0px 19px;
   font-weight: ${(props) => (props.selected ? 500 : 300)};
   font-size: 14px;
+  cursor: pointer;
 `;
 
 const Signup = styled(MenuItem)`

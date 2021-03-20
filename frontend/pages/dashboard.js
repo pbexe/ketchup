@@ -5,6 +5,7 @@ import TimeBar from "../components/TimeBar";
 import Centerer from "../components/Centerer";
 import Room from "../components/Room";
 import Footer from "../components/Footer";
+import moment from "moment";
 
 const Welcome = styled.div`
   font-size: 24px;
@@ -18,10 +19,11 @@ const Content = styled(Page)`
 `;
 
 const WelcomeAction = styled.div`
-  font-size: 14;
+  font-size: 15px;
   font-weight: 600;
   color: #afafbe;
   padding-bottom: 30px;
+  margin-top: 10px;
 `;
 
 const ActiveRooms = styled.div`
@@ -57,27 +59,27 @@ export default function Dashboard() {
           <Rooms>
             <Room
               title={"Daily Standup"}
-              start={new Date() - 1000 * 60 * 60 * 5}
+              startedAt={moment().subtract(45, "minutes")}
               length={45}
             />
             <Room
               title={"Sprint Retrospective"}
-              start={new Date() - 1000 * 60 * 60 * 5}
+              startedAt={moment().subtract(45, "minutes")}
               length={45}
             />
             <Room
               title={"Work on API"}
-              start={new Date() - 1000 * 60 * 60 * 5}
+              startedAt={moment().subtract(45, "minutes")}
               length={45}
             />
             <Room
               title={"Work on API"}
-              start={new Date() - 1000 * 60 * 60 * 5}
+              startedAt={moment().subtract(45, "minutes")}
               length={45}
             />
             <Room
               title={"Work on API"}
-              start={new Date() - 1000 * 60 * 60 * 5}
+              startedAt={moment().subtract(45, "minutes")}
               length={45}
             />
           </Rooms>

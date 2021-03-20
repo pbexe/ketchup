@@ -10,6 +10,7 @@
   "dependencies": {
     "@react-keycloak/web": "^3.4.0",
     "keycloak-js": "^12.0.4",
+    "moment": "^2.29.1",
     "next": "10.0.8",
     "next-iron-session": "^4.1.12",
     "next-session": "^3.4.0",

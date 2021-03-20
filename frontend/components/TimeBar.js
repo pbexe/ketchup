@@ -5,6 +5,7 @@ import { useState } from "react";
 const Play = styled.img`
   padding-left: 30px;
   padding-right: 30px;
+  cursor: pointer;
 `;
 
 const Underline = styled.div`
@@ -20,9 +21,7 @@ const Input = styled.input`
   outline: none;
   width: 100%;
 
-  ::placeholder,
-  ::-webkit-input-placeholder,
-  :-ms-input-placeholder {
+  &::placeholder {
     color: #cfcfd3;
   }
 
