@@ -85,11 +85,11 @@ async def start():
 #     logging.info(current_user)
 #     return current_user
 
-if os.environ.get('PRODUCTION') == True and (db_url:= os.environ.get('DATABASE_URL')):
+if os.environ.get('PRODUCTION') or os.environ.get('DATABASE_URL'):
     print("====== USING PROD DB ======")
     register_tortoise(
         app,
-        db_url=db_url,
+        db_url=os.environ.get('DATABASE_URL'),
         modules={"models": ["models.room", "models.user"]},
         generate_schemas=True,
         add_exception_handlers=True,

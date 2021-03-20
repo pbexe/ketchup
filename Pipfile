@@ -26,6 +26,7 @@ httptools = "*"
 pypika = "*"
 iso8601 = "*"
 aiosqlite = "*"
+asyncpg = "*"
 
 [dev-packages]
 
