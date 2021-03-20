@@ -8,7 +8,7 @@ const Play = styled.img`
 `;
 
 const Underline = styled.div`
-  border-bottom: 2px solid #ecedf7;
+  border-bottom: 1px solid #ecedf7;
 `;
 
 const Input = styled.input`

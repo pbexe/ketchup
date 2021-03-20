@@ -34,7 +34,7 @@ const Signup = styled(MenuItem)`
 `;
 
 const Underline = styled.div`
-  border-bottom: 2px solid #ecedf7;
+  border-bottom: 1px solid #ecedf7;
 `;
 
 export default function DashboardHeader({ selected }) {
