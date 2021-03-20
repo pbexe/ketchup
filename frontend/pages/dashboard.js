@@ -60,7 +60,7 @@ export default function Dashboard() {
         <TimeBar
           runningTimer={{
             title: "Daily Standup",
-            startedAt: moment().subtract(29, "minutes"),
+            startedAt: moment().subtract(29, "minutes").subtract(12, "seconds"),
             length: 45,
           }}
         />
