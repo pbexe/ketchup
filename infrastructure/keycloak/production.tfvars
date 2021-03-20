@@ -1,0 +1,1 @@
+keycloak_url="https://ketchup-keycloak.herokuapp.com"
