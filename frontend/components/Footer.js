@@ -31,7 +31,7 @@ const StyledLink = styled.a`
 export default function Footer() {
   return (
     <Container>
-      <StyledLink>Contact us</StyledLink>
+      <Link href="mailto:contact@ketchup.sh"><StyledLink>Contact us</StyledLink></Link>
       <Link href="/"><Logo src={"/images/greyLogo.svg"} /></Link>
       <Link href="/privacy"><StyledLink>Privacy Policy</StyledLink></Link>
     </Container>
