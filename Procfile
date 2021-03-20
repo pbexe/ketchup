@@ -1,1 +1,1 @@
-web: uvicorn zoom.main:app --host=0.0.0.0 --port=${PORT:-5000}
+web: gunicorn -k uvicorn.workers.UvicornWorker --app-dir zoom main:app
