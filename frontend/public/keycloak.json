@@ -1,0 +1,10 @@
+{
+  "realm": "ketchup",
+  "auth-server-url": "https://ketchup-keycloak.herokuapp.com/auth/",
+  "ssl-required": "external",
+  "resource": "frontend",
+  "public-client": true,
+  "verify-token-audience": true,
+  "use-resource-role-mappings": true,
+  "confidential-port": 0
+}
