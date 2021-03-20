@@ -32,13 +32,6 @@ const MenuItem = styled.div`
   cursor: pointer;
 `;
 
-const Signup = styled(MenuItem)`
-  font-weight: 600;
-  font-size: 14px;
-  color: #ff5858;
-  text-shadow: 0px 2px 3px #0000001c;
-`;
-
 const Underline = styled.div`
   border-bottom: 1px solid #ecedf7;
 `;
