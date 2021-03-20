@@ -23,6 +23,7 @@ uvicorn = "*"
 python-keycloak = "*"
 uvloop = "*"
 httptools = "*"
+pypika = "*"
 
 [dev-packages]
 

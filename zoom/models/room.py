@@ -3,6 +3,8 @@ from tortoise import fields
 from tortoise.fields import data
 from tortoise.contrib.pydantic import pydantic_model_creator
 import uuid
+from datetime import datetime
+
 
 from models.user import User
 
@@ -18,6 +20,13 @@ class Room(Model):
 
     def __str__(self):
         return self.name
+    
+    def today(self):
+        print("Type ===", type(self.start_time))
+        if self.start_time.date() == datetime.today().date():
+            return True
+        else:
+            return False
 
 
 Room_Pydantic = pydantic_model_creator(Room, name="Room")

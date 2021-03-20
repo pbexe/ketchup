@@ -17,3 +17,11 @@ class RoomController(Controller):
         participants = room.participants.all()
 
         return await User_Pydantic.from_queryset(participants)
+
+    async def total_time_today(self) -> int:
+        rooms = await self.tortoise_model.all()
+        total = 0
+        for room in rooms:
+            if room.today():
+                total += 40
+        return total

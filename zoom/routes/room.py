@@ -19,6 +19,11 @@ async def get_rooms():
     return await controller.retrieveAll()
 
 
+@router.get("/total", response_model=int)
+async def total():
+    return await controller.total_time_today()
+
+
 @router.post("/", response_model=controller.pydantic_model)
 async def create_room(room: controller.creation_model):
     return await controller.create(room)
