@@ -7,7 +7,7 @@ from fastapi import FastAPI, HTTPException
 import jwt
 
 # from models import User_Pydantic, UserIn_Pydantic, Users
-from .models import Room, Room_Pydantic, User
+from models import Room, Room_Pydantic, User
 
 import uuid
 

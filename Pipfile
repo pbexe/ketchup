@@ -20,6 +20,8 @@ pyjwt = "*"
 fastapi = "*"
 tortoise-orm = "*"
 uvicorn = "*"
+uvloop = "*"
+httptools = "*"
 
 [dev-packages]
 
