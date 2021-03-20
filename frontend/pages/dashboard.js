@@ -98,6 +98,8 @@ export default function Dashboard() {
 
   React.useEffect(() => {
     const timer = setTimeout(async () => {
+      const u = await getUser(keycloak.token);
+      setUser(u);
       const rooms = await getRooms(keycloak.token);
       setRooms(rooms);
     }, 1000);

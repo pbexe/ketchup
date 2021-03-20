@@ -125,6 +125,9 @@ const Select = styled.select`
     border-color: #ffffff00;
     outline: 0;
   }
+
+  font-size: 14px;
+  color: grey;
 `;
 
 function TimeBar({ runningTimer, onStart, onEnd }) {
