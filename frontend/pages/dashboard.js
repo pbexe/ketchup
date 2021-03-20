@@ -52,6 +52,10 @@ const FlexActiveRooms = styled.div`
   display: flex;
 `;
 
+const Clickable = styled.img`
+  cursor: pointer;
+`
+
 export default function Dashboard() {
   return (
     <Page>
@@ -70,7 +74,7 @@ export default function Dashboard() {
           <HorizontalRule />
           <FlexActiveRooms>
             <ActiveRooms>Active Rooms</ActiveRooms>
-            <img src="/images/createARoom.svg" />
+            <Clickable src="/images/createARoom.svg" />
           </FlexActiveRooms>
           <Rooms>
           </Rooms>

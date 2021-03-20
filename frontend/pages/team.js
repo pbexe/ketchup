@@ -55,7 +55,7 @@ const Flex = styled.div`
 `;
 
 const JustFlex = styled.div`
-    display: flex;
+  display: flex;
 `;
 
 const FlexSpaceAround = styled(Flex)`
@@ -64,7 +64,7 @@ const FlexSpaceAround = styled(Flex)`
 `
 
 const Padding = styled.div`
-    padding-bottom: 30px;
+  padding-bottom: 30px;
 `;
 
 const TimeFrameTitle = styled.div`
