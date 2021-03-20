@@ -12,6 +12,7 @@
     "next-iron-session": "^4.1.12",
     "react": "17.0.1",
     "react-dom": "17.0.1",
+    "styled-components": "^5.2.1",
     "swr": "^0.5.2"
   },
   "devDependencies": {
