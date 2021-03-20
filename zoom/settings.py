@@ -1,4 +1,4 @@
-import
+import os
 
 APP_BASE_URL = "http://localhost:8000/"
 if (os.environ.get('KEYCLOAK_BASE_URL')):
