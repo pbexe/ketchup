@@ -97,9 +97,7 @@ function TimeBar({ runningTimer, onStart, onEnd }) {
   const [timeLeft, setTimeLeft] = React.useState();
 
   React.useEffect(() => {
-    if (!runningTimer) {
-      return;
-    }
+    if (!runningTimer) return;
 
     const timer = setTimeout(() => {
       setTimeLeft(getTimeLeft(runningTimer.startedAt, runningTimer.length));
@@ -110,10 +108,15 @@ function TimeBar({ runningTimer, onStart, onEnd }) {
     };
   });
 
+  React.useEffect(() => {
+    if (!runningTimer) return;
+
+    setTimeLeft(getTimeLeft(runningTimer.startedAt, runningTimer.length));
+  }, [runningTimer]);
+
   if (timeLeft && timeLeft.minutes == "00" && timeLeft.seconds == "00") {
     runningTimer = undefined;
   }
-
   return (
     <>
       <Centerer>

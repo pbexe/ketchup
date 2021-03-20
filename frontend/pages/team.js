@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "styled-components";
 import Page from "../components/Page";
 import DashboardHeader from "../components/DashboardHeader";
@@ -8,6 +9,9 @@ import Footer from "../components/Footer";
 import moment from "moment";
 import NoRooms from "../components/NoRooms";
 import Table from "../components/Table";
+import { createRoom, getUser, joinRoom, leaveRoom } from "../api/rooms";
+import { useKeycloak } from "@react-keycloak/ssr";
+import { useRouter } from "next/router";
 
 const Welcome = styled.div`
   font-size: 24px;
@@ -158,16 +162,61 @@ export default function Team() {
     },
   ];
 
+  const { keycloak, initialized } = useKeycloak();
+
+  const [user, setUser] = React.useState({});
+  const router = useRouter();
+
+  const refetch = async () => {
+    const u = await getUser(keycloak.token);
+    setUser(u);
+
+    window.localStorage.setItem("user", JSON.stringify(u));
+  };
+
+  React.useEffect(() => {
+    const current = window.localStorage.getItem("user");
+    setUser(current ? JSON.parse(current) : {});
+  }, []);
+
+  React.useEffect(() => {
+    if (initialized && !keycloak.authenticated) {
+      router.push("/");
+    }
+    refetch();
+  }, [initialized, keycloak]);
+
+  console.log("user", user);
   return (
     <Page>
       <Content>
         <DashboardHeader selected={2} />
         <TimeBar
-        // runningTimer={{
-        //   title: "Daily Standup",
-        //   startedAt: moment().subtract(29, "minutes"),
-        //   length: 45,
-        // }}
+          runningTimer={
+            user.current_room && {
+              title: user.current_room.name,
+              startedAt: user.current_room.start_time,
+              length: user.current_room.duration,
+              faces:
+                user.current_room.users?.map((person) => ({
+                  url: `https://eu.ui-avatars.com/api/?name=${person.firstName}+${person.lastName}`,
+                })) ?? [],
+            }
+          }
+          onStart={async (duration, name) => {
+            const newRoom = await createRoom(keycloak.token, name, duration);
+            console.log(newRoom);
+
+            // Join the created room
+            await joinRoom(keycloak.token, newRoom.id);
+
+            refetch();
+          }}
+          onEnd={async () => {
+            await leaveRoom(keycloak.token);
+
+            refetch();
+          }}
         />
 
         <Centerer>

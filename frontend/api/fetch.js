@@ -10,7 +10,7 @@ export default async function fetchJson(endpoint, method, token, data) {
       body: data && JSON.stringify(data),
     };
     const response = await fetch(
-      `https://9abb8fb0b054.ngrok.io${endpoint}`,
+      `https://ketchup-keycloak.herokuapp.com${endpoint}`,
       args
     );
 

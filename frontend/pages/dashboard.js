@@ -65,6 +65,7 @@ const FlexActiveRooms = styled.div`
 export default function Dashboard() {
   const { keycloak, initialized } = useKeycloak();
   const [name, setName] = React.useState("");
+
   const [user, setUser] = React.useState({});
   const [rooms, setRooms] = React.useState([]);
 
@@ -73,11 +74,20 @@ export default function Dashboard() {
   const refetch = async () => {
     const user = await keycloak.loadUserProfile();
     setName(user.firstName);
+
     const u = await getUser(keycloak.token);
     setUser(u);
+
+    window.localStorage.setItem("user", JSON.stringify(u));
+
     const rooms = await getRooms(keycloak.token);
     setRooms(rooms);
   };
+
+  React.useEffect(() => {
+    const current = window.localStorage.getItem("user");
+    setUser(current ? JSON.parse(current) : {});
+  }, []);
 
   React.useEffect(() => {
     if (initialized && !keycloak.authenticated) {
@@ -97,6 +107,7 @@ export default function Dashboard() {
     }
     return true;
   });
+
   return (
     <Page>
       <Content>
