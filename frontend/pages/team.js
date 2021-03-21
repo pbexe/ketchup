@@ -110,6 +110,9 @@ const Profile = styled.img`
 
 const ProfileDetails = styled.div`
   padding-left: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
 
 function TimeFrame({ period, meetings, time }) {
@@ -131,34 +134,28 @@ function TimeFrame({ period, meetings, time }) {
 export default function Team() {
   const members = [
     {
-      name: "Alexander Craggs",
-      image: "/images/fancyBackground.svg",
-      email: "alex@alexander.com",
-      joined: moment().subtract(29, "hours").subtract(12, "seconds"),
+      name: "Miles B",
+      image: `https://eu.ui-avatars.com/api/?name=Miles+B&background=random`,
+      email: "miles@example.com",
+      joined: moment().subtract(18, "hours").subtract(35, "minutes").subtract(12, "seconds"),
     },
     {
-      name: "Alexander Craggs",
-      image: "/images/fancyBackground.svg",
-      email: "alex@alexander.com",
-      joined: moment().subtract(29, "hours").subtract(12, "seconds"),
+      name: "Tom K",
+      image: `https://eu.ui-avatars.com/api/?name=Tom+K&background=random`,
+      email: "tom1@example.com",
+      joined: moment().subtract(3, "hours").subtract(35, "minutes").subtract(12, "seconds"),
     },
     {
-      name: "Alexander Craggs",
-      image: "/images/fancyBackground.svg",
-      email: "alex@alexander.com",
-      joined: moment().subtract(29, "hours").subtract(12, "seconds"),
+      name: "Tom E",
+      image: `https://eu.ui-avatars.com/api/?name=Tom+E&background=random`,
+      email: "tom2@example.com",
+      joined: moment().subtract(6, "hours").subtract(12, "seconds"),
     },
     {
-      name: "Alexander Craggs",
-      image: "/images/fancyBackground.svg",
-      email: "alex@alexander.com",
-      joined: moment().subtract(29, "hours").subtract(12, "seconds"),
-    },
-    {
-      name: "Alexander Craggs",
-      image: "/images/fancyBackground.svg",
-      email: "alex@alexander.com",
-      joined: moment().subtract(29, "hours").subtract(12, "seconds"),
+      name: "Alex C",
+      image: `https://eu.ui-avatars.com/api/?name=Alex+C&background=random`,
+      email: "alex@example.com",
+      joined: moment().subtract(16, "hours").subtract(12, "seconds"),
     },
   ];
 

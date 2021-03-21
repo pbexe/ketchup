@@ -85,6 +85,12 @@ const Info = styled.div`
   align-items: center;
 `;
 
+const GrowthInfo = styled.div`
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+`;
+
 const Actions = styled.div`
   display: flex;
   align-items: center;
@@ -172,25 +178,29 @@ function TimeBar({ runningTimer, onStart, onEnd }) {
         <Flex>
           {!runningTimer && (
             <>
-              <Input
-                placeholder={"I'm working on..."}
-                value={text}
-                onChange={(el) => setText(el.target.value)}
-              />
-              <Select
-                value={time}
-                onChange={(e) => setTime(event.target.value)}
-              >
-                <option value="15">15 min</option>
-                <option value="25">25 min</option>
-                <option value="45">45 min</option>
-                <option value="60">60 min</option>
-                <option value="90">90 min</option>
-              </Select>
-              <Play
-                src="/images/playButton.svg"
-                onClick={() => onStart(time, text)}
-              />
+              <GrowthInfo>
+                <Input
+                  placeholder={"I'm working on..."}
+                  value={text}
+                  onChange={(el) => setText(el.target.value)}
+                />
+                <Select
+                  value={time}
+                  onChange={(e) => setTime(e.target.value)}
+                >
+                  <option value="15">15 min</option>
+                  <option value="25">25 min</option>
+                  <option value="45">45 min</option>
+                  <option value="60">60 min</option>
+                  <option value="90">90 min</option>
+                </Select>
+              </GrowthInfo>
+              <Actions>
+                <Play
+                  src="/images/playButton.svg"
+                  onClick={() => onStart(time, text)}
+                />
+              </Actions>
             </>
           )}
           {runningTimer && timeLeft && (
