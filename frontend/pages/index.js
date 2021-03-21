@@ -6,6 +6,7 @@ import styled from "styled-components";
 import Footer from "../components/Footer";
 import { useKeycloak } from "@react-keycloak/ssr";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const FancySection = styled.div`
   position: relative;
@@ -85,6 +86,15 @@ export default function Home() {
 
   return (
     <Page>
+      <Head>
+        <title>Ketchup</title>
+        <link
+          rel="icon"
+          href="images/logo-icon.svg"
+          sizes="any"
+          type="image/svg+xml"
+        />
+      </Head>
       <SplashHeader selected={1} />
       <FancySection>
         <FancyBackground />

@@ -112,38 +112,29 @@ const Select = styled.select`
   -webkit-appearance: none;
   -moz-appearance: none;
 
-  background-image:
-    linear-gradient(45deg, transparent 50%, gray 50%),
+  background-image: linear-gradient(45deg, transparent 50%, gray 50%),
     linear-gradient(135deg, gray 50%, transparent 50%),
     linear-gradient(to right, #ccc, #ccc);
-  background-position:
-    calc(100% - 20px) calc(1em + 2px),
-    calc(100% - 15px) calc(1em + 2px),
-    calc(100% - 2.5em) 0.5em;
-  background-size:
-    5px 5px,
-    5px 5px,
-    1px 1.5em;
+  background-position: calc(100% - 20px) calc(1em + 2px),
+    calc(100% - 15px) calc(1em + 2px), calc(100% - 2.5em) 0.5em;
+  background-size: 5px 5px, 5px 5px, 1px 1.5em;
   background-repeat: no-repeat;
 
   :focus {
-    background-image:
-      linear-gradient(45deg, green 50%, transparent 50%),
+    background-image: linear-gradient(45deg, green 50%, transparent 50%),
       linear-gradient(135deg, transparent 50%, green 50%),
       linear-gradient(to right, #ccc, #ccc);
-    background-position:
-      calc(100% - 15px) 1em,
-      calc(100% - 20px) 1em,
+    background-position: calc(100% - 15px) 1em, calc(100% - 20px) 1em,
       calc(100% - 2.5em) 0.5em;
-    background-size:
-      5px 5px,
-      5px 5px,
-      1px 1.5em;
+    background-size: 5px 5px, 5px 5px, 1px 1.5em;
     background-repeat: no-repeat;
     border-color: #ffffff00;
     outline: 0;
   }
-`
+
+  font-size: 14px;
+  color: grey;
+`;
 
 function TimeBar({ runningTimer, onStart, onEnd }) {
   const [time, setTime] = useState("45");
@@ -178,29 +169,24 @@ function TimeBar({ runningTimer, onStart, onEnd }) {
         <Flex>
           {!runningTimer && (
             <>
-              <GrowthInfo>
-                <Input
-                  placeholder={"I'm working on..."}
-                  value={text}
-                  onChange={(el) => setText(el.target.value)}
-                />
-                <Select
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-                >
-                  <option value="15">15 min</option>
-                  <option value="25">25 min</option>
-                  <option value="45">45 min</option>
-                  <option value="60">60 min</option>
-                  <option value="90">90 min</option>
-                </Select>
-              </GrowthInfo>
-              <Actions>
-                <Play
-                  src="/images/playButton.svg"
-                  onClick={() => onStart(time, text)}
-                />
-              </Actions>
+              <Input
+                placeholder={"I'm working on..."}
+                value={text}
+                onChange={(el) => setText(el.target.value)}
+              />
+              <Select
+                value={time}
+                onChange={(e) => setTime(event.target.value)}
+              >
+                <option value="15">15 min</option>
+                <option value="25">25 min</option>
+                <option value="45">45 min</option>
+                <option value="60">60 min</option>
+              </Select>
+              <Play
+                src="/images/playButton.svg"
+                onClick={() => onStart(time, text)}
+              />
             </>
           )}
           {runningTimer && timeLeft && (

@@ -16,7 +16,7 @@ from models.user import User_Pydantic
 
 @router.get("/", response_model=List[controller.pydantic_model])
 async def get_rooms():
-    return await controller.retrieveAll()
+    return await controller.pydantic_model.from_queryset(controller.tortoise_model.filter(disabled=False))
 
 
 @router.get("/total", response_model=int)

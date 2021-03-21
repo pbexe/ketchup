@@ -89,7 +89,8 @@ async def leave_room(user: dict = Depends(demand_current_user)):
     await user.save()
 
     if len(other_users_in_room) == 0:
-        await room.delete()
+        room.disabled = True
+        await room.save()
 
     return await UserPydantic.from_queryset_single(User.get(id=user.id))
 

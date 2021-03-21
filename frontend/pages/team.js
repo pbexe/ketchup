@@ -12,6 +12,7 @@ import Table from "../components/Table";
 import { createRoom, getUser, joinRoom, leaveRoom } from "../api/rooms";
 import { useKeycloak } from "@react-keycloak/ssr";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const Welcome = styled.div`
   font-size: 24px;
@@ -186,6 +187,15 @@ export default function Team() {
   console.log("user", user);
   return (
     <Page>
+      <Head>
+        <title>Ketchup Team</title>
+        <link
+          rel="icon"
+          href="images/logo-icon.svg"
+          sizes="any"
+          type="image/svg+xml"
+        />
+      </Head>
       <Content>
         <DashboardHeader selected={2} />
         <TimeBar
